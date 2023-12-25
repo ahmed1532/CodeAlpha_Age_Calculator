@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 100vh;
+        overflow-y: hidden;
+      }
+      form {
+        border-radius: 24px;
+        margin-top: 100px;
+        min-width: 250px;
+        width: 50vw;
+        max-width: 800px;
+        margin-inline: auto;
+        padding: 10px 15px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+      }
+      form p {
+        margin: auto;
+        font-weight: bold;
+        font-size: x-large;
+        text-align: center;
+        color: rgb(4, 179, 254);
+      }
+      form > p {
+        padding-block: 40px;
+        font-size: xx-large;
+      }
+      .date {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      #button {
+        margin-top: 48px;
+        background: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+        padding: 16px 24px;
+        font-size: x-large;
+        font-weight: bold;
+        margin-inline: auto;
+        border-radius: 24px;
+      }
+      input {
+        margin-top: 8px;
+        /* padding: 16px 24px; */
+        font-size: x-large;
+        text-align: center;
+      }
+      hr {
+        margin-bottom: 36px;
+      }
+      #result {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <p>Age Calculator</p>
+      <hr />
+      <div class="date">
+        <div class="container">
+          <p>Day</p>
+          <input
+            type="number"
+            min="1"
+            max="31"
+            placeholder="dd"
+            required
+            id="birth-day"
+            onfocus="changeHandler()"
+          />
+        </div>
+        <div class="container">
+          <p>Month</p>
+          <input
+            type="number"
+            min="1"
+            max="12"
+            placeholder="mm"
+            required
+            id="birth-month"
+            onfocus="changeHandler()"
+          />
+        </div>
+        <div class="container">
+          <p>Year</p>
+          <input
+            type="number"
+            min="1900"
+            max="2023"
+            placeholder="yyyy"
+            required
+            id="birth-year"
+            onfocus="changeHandler()"
+          />
+        </div>
+      </div>
+      <button id="button">Calculate</button>
+      <p id="result"></p>
+    </form>
+    <script>
+      let birthDay = document.getElementById("birth-day");
+      let birthMonth = document.getElementById("birth-month");
+      let birthYear = document.getElementById("birth-year");
+      let result = document.getElementById("result");
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+      });
+      document.getElementById("button").addEventListener("click", function () {
+        d1 = birthDay.value;
+        m1 = birthMonth.value;
+        y1 = birthYear.value;
+        let date = new Date();
+        let y2 = date.getFullYear();
+        let m2 = 1 + date.getMonth();
+        let d2 = date.getDate();
+        let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (d1 > d2) {
+          d2 = d2 + month[m2 - 1];
+          m2 = m2 - 1;
+        }
+        if (m1 > m2) {
+          m2 = m2 + 12;
+          y2 = y2 - 1;
+        }
+        let d = d2 - d1;
+        let m = m2 - m1;
+        let y = y2 - y1;
+
+        result.innerHTML = `Your Age is ${y} Years ${m} Months ${d} Days`;
+        result.style.display = "block";
+      });
+      function changeHandler() {
+        result.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
